@@ -4,8 +4,13 @@
 The Iris dataset is a classic classification problem in machine learning analysis. The dataset provides many classes/features that can be used to classify flower type.
 Creator: R.A. Fisher
 
-# Objectives:
+# Objectives
 
 - Calculate simple statistics
 - 5 different plots of the data
 - Analyze and build models using scikit-learn
+
+# Note for Julien
+```bash
+Please proceed to python files folder to find 01_Iris_machine_learning.py
+```
