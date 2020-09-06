@@ -1,5 +1,5 @@
 # Iris Machine Learning Assignment
-# Brenton Wilder RED ID: 823418603
+# Brenton Wilder
 # September 5th, 2020
 
 # Import libraries
