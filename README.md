@@ -10,7 +10,7 @@ Creator: R.A. Fisher
 - 5 different plots of the data
 - Analyze and build models using scikit-learn
 
-# Note for Julien
+# Note for Julien and Will
 ```bash
 Please proceed to python files folder to find 01_Iris_machine_learning.py
 ```
