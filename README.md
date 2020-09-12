@@ -1,18 +1,30 @@
-# PythonProject
+# Iris Machine Learning Assignment
+![alt text](https://www.dotnetlovers.com/Images/IrisFlowerSepalandPetal928201820507AM.jpg)
 
-# Setup for developement:
+The Iris dataset is a classic classification problem in machine learning analysis. The dataset provides many classes/features that can be used to classify flower type.
+Creator: R.A. Fisher
 
-- Setup a python 3.x venv (usually in `.venv`)
-  - You can run `./scripts/create-venv.sh` to generate one
-- `pip3 install --upgrade pip`
-- Install dev requirements `pip3 install -r requirements.dev.txt`
-- Install requirements `pip3 install -r requirements.txt`
-- `pre-commit install`
+# Objectives
 
-## Update versions
+- Calculate simple statistics
+- 5 different plots of the data
+- Analyze and build models using scikit-learn
 
-`pip-compile --output-file=requirements.dev.txt requirements.dev.in --upgrade`
+# Note for Julien and Will
+```bash
+Please proceed to python files folder to find 01_Iris_machine_learning.py
+```
 
-# Run `pre-commit` locally.
+# I tried to use the bash script but I made the plots only on python. This will be something I can improve next time! For now, you can only use bash script to see table results.
+Clone repo: git clone -b Assignment_1 https://github.com/bwilder95/FrenchStewart.git
 
-`pre-commit run --all-files`
+Note: Make sure you are in an empty directory, otherwise type mkdir newdir
+
+Go into the directory where the repo is cloned: cd newdir
+
+Enter into the FrenchStewart directory: cd FrenchStewart
+
+Run script: ./scripts/run-ml-code.sh
+
+Note: If you are unable to run script, try typing chmod +x ./scripts/run-ml-code.sh 
+and then ./scripts/run-ml-code.sh
