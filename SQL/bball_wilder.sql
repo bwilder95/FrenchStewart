@@ -34,16 +34,12 @@ create table batting_avg_annual
  	group by batter,year
  	limit 0,20;
 
- -- Create new table for past 100 days batting average
- create table batting_avg_100day
-	as (select batter_counts.batter,batter_counts.Hit,batter_counts.atBat,game.local_date
-	from batter_counts 
-	inner join game on batter_counts.game_id=game.game_id)
-	
- -- Display table for past 100 days batting average (March 16,2012 through June 24,2012 (prediction date = June 25,2012))
-select batter, avg(Hit/atBat)
-	from batting_avg_100day
-	where local_date >= '2012-03-16'
-	and local_date < '2012-06-24'
-	group by batter
- 	limit 0,20;
+-- Create rolling window table
+select a.local_date,a.batter,
+round((select avg(b.Hit/b.atBat)
+	from batting_avg_annual as b
+	where datediff(a.local_date,b.local_date) between 0 and 100
+	),7) as '100dayMovingAVG'
+	from batting_avg_annual as a
+	order by a.batter,a.local_date desc
+	limit 0,20;
