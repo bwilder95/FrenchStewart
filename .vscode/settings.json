@@ -2,6 +2,6 @@
   "files.watcherExclude": {
     "**/.venv": true
   },
-  "python.pythonPath": ".venv/bin/python",
+  "python.pythonPath": "C:\\Users\\Brent\\anaconda3\\python.exe",
   "python.terminal.activateEnvironment": true
 }
