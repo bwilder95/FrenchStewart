@@ -35,15 +35,12 @@ create table batting_avg_annual
  	from batting_avg_annual
  	group by batter,year
  	limit 0,20;
-
- 
+				
  -- Create rolling window table
-SELECT a.local_date,a.batter,
-(SELECT (SUM(b.Hit)/(SUM(b.atBat)))
-FROM (select *
-	  from batting_avg_annual
-	  group by batter) as b
-WHERE DATEDIFF(a.local_date,b.local_date) BETWEEN 0 AND 100) AS battingavg100day
+SELECT a.local_date,a.batter, a.atBat, a.Hit,
+(SELECT SUM(b.Hit)/nullif (SUM(b.atBat),0)
+from batting_avg_annual as b
+WHERE DATEDIFF(a.local_date,b.local_date) BETWEEN 0 AND 100 and a.batter = b.batter) AS battingavg100day
 FROM batting_avg_annual AS a
-ORDER BY a.batter,a.local_date DESC
+ORDER BY a.local_date asc
 LIMIT 0,20;
