@@ -13,4 +13,4 @@ Run script: ./scripts/run-sparky.sh
 Note: If you are unable to run script, try typing chmod +x ./scripts/run-sparky.sh 
 and then ./scripts/run-sparky.sh
 
-# Note: I had to use port 3307 for MySQL by 3306 is used by MariaDB
+# Note: I had to use port 3307 for MySQL, 3306 is used by MariaDB
