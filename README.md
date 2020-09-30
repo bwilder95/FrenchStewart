@@ -1,6 +1,6 @@
 # Spark Assignment
 
-Clone repo: git clone -b Sparky https://github.com/bwilder95/FrenchStewart.git
+### Clone repo: git clone -b Sparky https://github.com/bwilder95/FrenchStewart.git
 
 Note: Make sure you are in an empty directory, otherwise type mkdir newdir
 
