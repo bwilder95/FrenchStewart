@@ -46,18 +46,18 @@ def main():
 	    JOIN game ON batter_counts.game_id = game.game_id
         """
     )
-    joinTable.show()
+    #joinTable.show()
     joinTable.createOrReplaceTempView("joinTable")
     joinTable.persist(StorageLevel.DISK_ONLY)
 
     # Create rolling window table
     rollTable= spark.sql(
         """
-        SELECT a.local_date,a.batter,a.atBat,a.Hit
+        SELECT a.local_date, SUM(a.Hit)/nullif (SUM(a.atBat),0)
         FROM joinTable as a
         JOIN joinTable as b
-        ON a.local_date WHERE DATEDIFF(a.local_date,b.local_date) BETWEEN 0 AND 100  
-            AND a.batter=b.batter
+        ON a.local_date WHERE DATEDIFF(a.local_date,b.local_date) & 0 AND 100  
+            & a.batter=b.batter
         """)
     rollTable.show()
 
