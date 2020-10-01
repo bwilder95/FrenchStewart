@@ -44,10 +44,13 @@ def main():
         SELECT batter_counts.batter, batter_counts.Hit, batter_counts.atBat, game.local_date
 	    FROM batter_counts 
 	    JOIN game ON batter_counts.game_id = game.game_id
-        """)
+        """
+    )
+    joinTable.show()
     joinTable.createOrReplaceTempView("joinTable")
     joinTable.persist(StorageLevel.DISK_ONLY)
 
+    # Create rolling window table
     rollTable= spark.sql(
         """
         SELECT a.local_date,a.batter,a.atBat,a.Hit
