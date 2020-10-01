@@ -32,32 +32,31 @@ def main():
         user=user,
         password=password).load()
 
-    # Join tables as "BballCombine"
-    BballCombine = game.join(batter_counts, on=['game_id'], how='inner')
-
     # Assign to temp view
     batter_counts.createOrReplaceTempView("batter_counts")
     batter_counts.persist(StorageLevel.DISK_ONLY)
-
     game.createOrReplaceTempView("game")
     game.persist(StorageLevel.DISK_ONLY)
 
-    BballCombine.createOrReplaceTempView("BballCombine")
-    BballCombine.persist(StorageLevel.DISK_ONLY)
-
-    # Create rolling table
-    roll = spark.sql(
+    # Create joinTable
+    joinTable= spark.sql(
         """
-        SELECT a.local_date,a.batter,a.atBat,a.Hit,
-        (SELECT SUM(b.Hit)/NULLIF(SUM(b.atBat),0)
-        FROM BballCombine AS b
-        WHERE DATEDIFF(a.local_date,b.local_date) BETWEEN 0 AND 100 AND a.batter=b.batter) AS battingavg100day
-        FROM BballCombine AS a
-        ORDER BY a.local_date ASC
+        SELECT batter_counts.batter, batter_counts.Hit, batter_counts.atBat, game.local_date
+	    FROM batter_counts 
+	    JOIN game ON batter_counts.game_id = game.game_id
         """)
-    roll.show()
+    joinTable.createOrReplaceTempView("joinTable")
+    joinTable.persist(StorageLevel.DISK_ONLY)
+
+    rollTable= spark.sql(
+        """
+        SELECT a.local_date,a.batter,a.atBat,a.Hit
+        FROM joinTable as a
+        JOIN joinTable as b
+        ON a.local_date WHERE DATEDIFF(a.local_date,b.local_date) BETWEEN 0 AND 100  
+            AND a.batter=b.batter
+        """)
+    rollTable.show()
 
 if __name__ == "__main__":
     sys.exit(main())
-
-
