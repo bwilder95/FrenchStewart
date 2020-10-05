@@ -1,4 +1,4 @@
-# Iris Machine Learning Assignment
+# HW 4
 ![alt text](https://www.dotnetlovers.com/Images/IrisFlowerSepalandPetal928201820507AM.jpg)
 
 The Iris dataset is a classic classification problem in machine learning analysis. The dataset provides many classes/features that can be used to classify flower type.
