@@ -1,5 +1,6 @@
 # HW 4
 # Brenton Wilder
+# Estimated run time is 0:00:02.699962 seconds
 import sys
 
 import statsmodels.api
@@ -13,8 +14,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestRegressor
 from sklearn import metrics
+from datetime import datetime
 
 def main():
+    start_t = datetime.now()
     # Input dataset
     dataset = datasets.load_breast_cancer()
     X = dataset.data
@@ -133,6 +136,6 @@ def main():
         for f in range(X.shape[1]):
             print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
 
-
+    print(F" {(datetime.now() - start_t)} seconds")
 if __name__ == "__main__":
     sys.exit(main())
