@@ -37,13 +37,18 @@ def main():
             # Plot the figure to a local html file
             fig = px.scatter(x=column, y=y, trendline="ols")
             fig2 = px.histogram(x=column, nbins=20)
+            # for ....:
+            #    Mpop = np.average(column)
+            #    Mi = np.average(column[i])
+            #    Square = (Mi - Mpop)**2
+            # Diff = sum(Square) / n
             fig.update_layout(
                 title=f"Variable:{feature_name}:(t-value={t_value})(p-value={p_value})",
                 xaxis_title=f"Variable: {feature_name}",
                 yaxis_title="y",
             )
             fig2.update_layout(
-                title=f"Variable:{feature_name}:(t-value={t_value})(p-value={p_value})",
+                title=f"Variable:{feature_name}:Mean difference = xxx",
                 xaxis_title=f"Variable: {feature_name}",
                 yaxis_title="count",
             )
