@@ -1,20 +1,18 @@
 # HW 4
 # Brenton Wilder
-# Estimated run time is 0:00:02.201982 seconds
+# Estimated run time is 0:00:04.021005 seconds
 import sys
+from datetime import datetime
 
+import numpy as np
 import statsmodels.api
 from plotly import express as px
-from sklearn import datasets
-import numpy as np
+from sklearn import datasets, metrics
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestRegressor
-from sklearn import metrics
-from datetime import datetime
+
 
 def main():
     start_t = datetime.now()
@@ -38,74 +36,90 @@ def main():
             p_value = "{:.6e}".format(linear_regression_model_fitted.pvalues[1])
             # Plot the figure to a local html file
             fig = px.scatter(x=column, y=y, trendline="ols")
-            fig2 = px.histogram(x=column,nbins=20)
+            fig2 = px.histogram(x=column, nbins=20)
             fig.update_layout(
-            title=f"Variable: {feature_name}: (t-value={t_value}) (p-value={p_value})",
-            xaxis_title=f"Variable: {feature_name}",
-            yaxis_title="y")
+                title=f"Variable:{feature_name}:(t-value={t_value})(p-value={p_value})",
+                xaxis_title=f"Variable: {feature_name}",
+                yaxis_title="y",
+            )
             fig2.update_layout(
-            title=f"Variable: {feature_name}: (t-value={t_value}) (p-value={p_value})",
-            xaxis_title=f"Variable: {feature_name}",
-            yaxis_title="count")
-            with open('./p_graph.html', 'a') as f:
-                f.write(fig.to_html(full_html=False, include_plotlyjs='cdn'))
-                f.write(fig2.to_html(full_html=False, include_plotlyjs='cdn'))
+                title=f"Variable:{feature_name}:(t-value={t_value})(p-value={p_value})",
+                xaxis_title=f"Variable: {feature_name}",
+                yaxis_title="count",
+            )
+            with open("./p_graph.html", "a") as f:
+                f.write(fig.to_html(full_html=False, include_plotlyjs="cdn"))
+                f.write(fig2.to_html(full_html=False, include_plotlyjs="cdn"))
 
         # Categorical predictor, X, and continuous response, y
         elif y.dtype == np.number and X.dtype != np.number:
-            logistic_regression_model = LogisticRegression(random_state=1234).fit(predictor, y)
+            logistic_regression_model = LogisticRegression(random_state=1234).fit(
+                predictor, y
+            )
             print(f"Variable: {feature_name} Fit Score")
-            print(logistic_regression_model.score(predictor,y))
+            print(logistic_regression_model.score(predictor, y))
             # Plot the Figure to a local html file
             fig = px.violin(predictor)
             fig.update_layout(
-            title=f"Variable: {feature_name}",
-            xaxis_title=f"Variable: {feature_name}",
-            yaxis_title="y")
-            with open('./p_graph.html', 'a') as f:
-                f.write(fig.to_html(full_html=False, include_plotlyjs='cdn'))
+                title=f"Variable: {feature_name}",
+                xaxis_title=f"Variable: {feature_name}",
+                yaxis_title="y",
+            )
+            with open("./p_graph.html", "a") as f:
+                f.write(fig.to_html(full_html=False, include_plotlyjs="cdn"))
 
         # Continuous predictor, X, and categorical response, y
         elif y.dtype != np.number and X.dtype == np.number:
-            logistic_regression_model = LogisticRegression(random_state=1234).fit(predictor, y)
+            logistic_regression_model = LogisticRegression(random_state=1234).fit(
+                predictor, y
+            )
             print(f"Variable: {feature_name} Fit Score")
-            print(logistic_regression_model.score(predictor,y))
+            print(logistic_regression_model.score(predictor, y))
             # Plot the Figure to a local html file
             fig = px.violin(predictor)
             fig.update_layout(
-            title=f"Variable: {feature_name}",
-            xaxis_title=f"Variable: {feature_name}",
-            yaxis_title="y")
-            with open('./p_graph.html', 'a') as f:
-                f.write(fig.to_html(full_html=False, include_plotlyjs='cdn'))
+                title=f"Variable: {feature_name}",
+                xaxis_title=f"Variable: {feature_name}",
+                yaxis_title="y",
+            )
+            with open("./p_graph.html", "a") as f:
+                f.write(fig.to_html(full_html=False, include_plotlyjs="cdn"))
 
-        else: 
+        else:
             # Categorical response, X, categorical response, y
-            logistic_regression_model = LogisticRegression(random_state=1234).fit(predictor, y)
+            logistic_regression_model = LogisticRegression(random_state=1234).fit(
+                predictor, y
+            )
             print(f"Variable: {feature_name} Fit Score")
-            print(logistic_regression_model.score(predictor,y))
+            print(logistic_regression_model.score(predictor, y))
             # Plot the Figure to a local html file
             fig = px.violin(predictor)
             fig.update_layout(
-            title=f"Variable: {feature_name}",
-            xaxis_title=f"Variable: {feature_name}",
-            yaxis_title="y")
-            with open('./p_graph.html', 'a') as f:
-                f.write(fig.to_html(full_html=False, include_plotlyjs='cdn'))
+                title=f"Variable: {feature_name}",
+                xaxis_title=f"Variable: {feature_name}",
+                yaxis_title="y",
+            )
+            with open("./p_graph.html", "a") as f:
+                f.write(fig.to_html(full_html=False, include_plotlyjs="cdn"))
 
     # Continuous predictor, X, and continuous response, y
     if y.dtype == np.number and X.dtype == np.number:
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.2, random_state=0
+        )
         sc = StandardScaler()
         X_train = sc.fit_transform(X_train)
         X_test = sc.transform(X_test)
         regressor = RandomForestRegressor(n_estimators=200, random_state=0)
         regressor.fit(X_train, y_train)
         y_pred = regressor.predict(X_test)
-        print('******Random forest regression performance*******')
-        print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred))
-        print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred))
-        print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
+        print("******Random forest regression performance*******")
+        print("Mean Absolute Error:", metrics.mean_absolute_error(y_test, y_pred))
+        print("Mean Squared Error:", metrics.mean_squared_error(y_test, y_pred))
+        print(
+            "Root Mean Squared Error:",
+            np.sqrt(metrics.mean_squared_error(y_test, y_pred)),
+        )
         importances = regressor.feature_importances_
         indices = np.argsort(importances)[::-1]
         print("*****Feature ranking:*****")
@@ -121,7 +135,7 @@ def main():
         print("*****Feature ranking:*****")
         for f in range(X.shape[1]):
             print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
-    
+
     # Continuous predictor, X, and categorical response, y
     elif y.dtype != np.number and X.dtype == np.number:
         rf = RandomForestClassifier(max_depth=2, random_state=0)
@@ -131,8 +145,8 @@ def main():
         print("*****Feature ranking:*****")
         for f in range(X.shape[1]):
             print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
-    
-    else: 
+
+    else:
         # Categorical response, X, categorical response, y
         rf = RandomForestClassifier(max_depth=2, random_state=0)
         rf.fit(X, y)
@@ -142,6 +156,8 @@ def main():
         for f in range(X.shape[1]):
             print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
 
-    print(F" {(datetime.now() - start_t)} seconds")
+    print(f" {(datetime.now() - start_t)} seconds")
+
+
 if __name__ == "__main__":
     sys.exit(main())
