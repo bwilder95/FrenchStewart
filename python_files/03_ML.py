@@ -1,6 +1,6 @@
 # HW 4
 # Brenton Wilder
-# Estimated run time is 0:00:02.699962 seconds
+# Estimated run time is 0:00:02.201982 seconds
 import sys
 
 import statsmodels.api
@@ -19,7 +19,7 @@ from datetime import datetime
 def main():
     start_t = datetime.now()
     # Input dataset
-    dataset = datasets.load_breast_cancer()
+    dataset = datasets.load_diabetes()
     X = dataset.data
     y = dataset.target
 
@@ -38,12 +38,18 @@ def main():
             p_value = "{:.6e}".format(linear_regression_model_fitted.pvalues[1])
             # Plot the figure to a local html file
             fig = px.scatter(x=column, y=y, trendline="ols")
+            fig2 = px.histogram(x=column,nbins=20)
             fig.update_layout(
             title=f"Variable: {feature_name}: (t-value={t_value}) (p-value={p_value})",
             xaxis_title=f"Variable: {feature_name}",
             yaxis_title="y")
+            fig2.update_layout(
+            title=f"Variable: {feature_name}: (t-value={t_value}) (p-value={p_value})",
+            xaxis_title=f"Variable: {feature_name}",
+            yaxis_title="count")
             with open('./p_graph.html', 'a') as f:
                 f.write(fig.to_html(full_html=False, include_plotlyjs='cdn'))
+                f.write(fig2.to_html(full_html=False, include_plotlyjs='cdn'))
 
         # Categorical predictor, X, and continuous response, y
         elif y.dtype == np.number and X.dtype != np.number:
