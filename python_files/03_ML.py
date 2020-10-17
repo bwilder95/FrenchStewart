@@ -5,6 +5,7 @@ import sys
 from datetime import datetime
 
 import numpy as np
+import pandas as pd
 import statsmodels.api
 from plotly import express as px
 from sklearn import datasets, metrics
@@ -17,7 +18,7 @@ from sklearn.preprocessing import StandardScaler
 def main():
     start_t = datetime.now()
     # Input dataset
-    dataset = datasets.load_iris()
+    dataset = datasets.load_diabetes()
     X = dataset.data
     y = dataset.target
 
@@ -37,22 +38,23 @@ def main():
             # Plot the figure to a local html file
             fig = px.scatter(x=column, y=y, trendline="ols")
             fig2 = px.histogram(x=column, nbins=20)
-            # for ....:
-            #    Mpop = np.average(column)
-            #    Mi = np.average(column[i])
-            #    Square = (Mi - Mpop)**2
-            # Diff = sum(Square) / n
+            # This is not working, giving NaN
+            _, bins = np.histogram(column, bins=20)
+            bin_means = pd.Series(column).groupby(pd.cut(column, bins)).mean()
+            Sumallll = sum(column)
+            pop_avg = Sumallll / all(column)
+            Diff = 1 / 20 * sum(bin_means - pop_avg) ** 2
             fig.update_layout(
                 title=f"Variable:{feature_name}:(t-value={t_value})(p-value={p_value})",
                 xaxis_title=f"Variable: {feature_name}",
                 yaxis_title="y",
             )
             fig2.update_layout(
-                title=f"Variable:{feature_name}:Mean difference = xxx",
+                title=f"Variable:{feature_name}:Mean difference = {Diff}",
                 xaxis_title=f"Variable: {feature_name}",
                 yaxis_title="count",
             )
-            with open("./p_graph", "a") as f:
+            with open("./p_graph.html", "a") as f:
                 f.write(fig.to_html(full_html=False, include_plotlyjs="cdn"))
                 f.write(fig2.to_html(full_html=False, include_plotlyjs="cdn"))
 
