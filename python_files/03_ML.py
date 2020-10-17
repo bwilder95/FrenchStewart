@@ -17,7 +17,7 @@ from sklearn.preprocessing import StandardScaler
 def main():
     start_t = datetime.now()
     # Input dataset
-    dataset = datasets.load_diabetes()
+    dataset = datasets.load_iris()
     X = dataset.data
     y = dataset.target
 
@@ -52,7 +52,7 @@ def main():
                 xaxis_title=f"Variable: {feature_name}",
                 yaxis_title="count",
             )
-            with open("./p_graph.html", "a") as f:
+            with open("./p_graph", "a") as f:
                 f.write(fig.to_html(full_html=False, include_plotlyjs="cdn"))
                 f.write(fig2.to_html(full_html=False, include_plotlyjs="cdn"))
 
@@ -63,10 +63,11 @@ def main():
             )
             print(f"Variable: {feature_name} Fit Score")
             print(logistic_regression_model.score(predictor, y))
+            score = logistic_regression_model.score(predictor, y)
             # Plot the Figure to a local html file
-            fig = px.violin(predictor)
+            fig = px.violin(x=y, y=column)
             fig.update_layout(
-                title=f"Variable: {feature_name}",
+                title=f"Variable:{feature_name},Logistic Regression Fit Score={score}",
                 xaxis_title=f"Variable: {feature_name}",
                 yaxis_title="y",
             )
@@ -80,10 +81,11 @@ def main():
             )
             print(f"Variable: {feature_name} Fit Score")
             print(logistic_regression_model.score(predictor, y))
+            score = logistic_regression_model.score(predictor, y)
             # Plot the Figure to a local html file
-            fig = px.violin(predictor)
+            fig = px.violin(x=y, y=column)
             fig.update_layout(
-                title=f"Variable: {feature_name}",
+                title=f"Variable: {feature_name},Logistic Regression Fit Score={score}",
                 xaxis_title=f"Variable: {feature_name}",
                 yaxis_title="y",
             )
@@ -97,10 +99,11 @@ def main():
             )
             print(f"Variable: {feature_name} Fit Score")
             print(logistic_regression_model.score(predictor, y))
+            score = logistic_regression_model.score(predictor, y)
             # Plot the Figure to a local html file
-            fig = px.violin(predictor)
+            fig = px.violin(x=y, y=column)
             fig.update_layout(
-                title=f"Variable: {feature_name}",
+                title=f"Variable:{feature_name},Logistic Regression Fit Score={score}",
                 xaxis_title=f"Variable: {feature_name}",
                 yaxis_title="y",
             )
