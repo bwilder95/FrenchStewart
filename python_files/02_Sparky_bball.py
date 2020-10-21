@@ -5,7 +5,6 @@
 # Import libraries
 import sys
 
-import requests
 from pyspark import StorageLevel
 from pyspark.sql import SparkSession
 
@@ -17,7 +16,7 @@ def main():
     database = "baseball"
     port = "3307"
     user = "root"
-    password = "password123"
+    password = "password123"  # pragma: allowlist secret
     # Load 'batter_counts' table
     batter_counts = (
         spark.read.format("jdbc")
