@@ -34,7 +34,7 @@ def main():
     game = (
         spark.read.format("jdbc")
         .options(
-            url=f"jdbc:mysql://localhost:{port}/{database}?zeroDateTimeBehavior=convertToNull",
+            url=f"jdbc:mysql://localhost:{port}/{database}?zeroDateTimeBehavior=convertToNull",  # noqa: E501
             driver="com.mysql.cj.jdbc.Driver",
             dbtable="game",
             user=user,
