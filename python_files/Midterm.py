@@ -18,6 +18,14 @@ from sklearn.neighbors import KNeighborsClassifier
 
 
 """
+How the code works:
+When run, you will be prompted with a few figures to visualize.
+After you are done viewing, close figure to continue the code.
+3 html files will be saved to your folder.
+1. pearson
+2. MeanOfResponse
+3. BruteForceRankings
+
 Datsets this code works with:
 load_boston() , yes
 load_iris() , yes
