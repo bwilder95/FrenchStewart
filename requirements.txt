@@ -4,4 +4,30 @@
 #
 #    pip-compile --output-file=requirements.txt requirements.in
 #
-numpy==1.18.4             # via -r requirements.in
+certifi==2020.6.20        # via matplotlib
+cycler==0.10.0            # via matplotlib
+joblib==0.17.0            # via mlxtend, scikit-learn
+kiwisolver==1.2.0         # via matplotlib
+matplotlib==3.3.2         # via -r requirements.in, mlxtend, seaborn
+mlxtend==0.17.3           # via -r requirements.in
+numpy==1.18.4             # via -r requirements.in, matplotlib, mlxtend, pandas, patsy, scikit-learn, scipy, seaborn, statsmodels
+pandas==1.1.1             # via -r requirements.in, mlxtend, seaborn, statsmodels
+patsy==0.5.1              # via statsmodels
+pillow==8.0.1             # via matplotlib
+plotly==4.9.0             # via -r requirements.in
+py4j==0.10.7              # via pyspark
+pyparsing==2.4.7          # via matplotlib
+pyspark==2.4.0            # via -r requirements.in
+python-dateutil==2.8.1    # via matplotlib, pandas
+pytz==2020.1              # via pandas
+retrying==1.3.3           # via plotly
+scikit-learn==0.23.2      # via mlxtend, sklearn
+scipy==1.5.3              # via mlxtend, scikit-learn, seaborn, statsmodels
+seaborn==0.11.0           # via -r requirements.in
+six==1.15.0               # via cycler, patsy, plotly, python-dateutil, retrying
+sklearn==0.0              # via -r requirements.in
+statsmodels==0.12.0       # via -r requirements.in
+threadpoolctl==2.1.0      # via scikit-learn
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
