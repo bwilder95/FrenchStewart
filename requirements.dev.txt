@@ -85,6 +85,10 @@ matplotlib==3.1.3         # via plots
 seaborn==0.10.0           # via plots
 pandas==1.1.1             # via dataframes
 pyspark==2.4.0            # via spark
+mlxtend==0.17.3           # via BruteForce
+plotly==4.9.0             # via plots
+statsmodels==0.11.0       # via stats
+
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip

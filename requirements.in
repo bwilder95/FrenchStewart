@@ -2,3 +2,8 @@ numpy
 pyspark
 plotly
 pandas
+sklearn
+matplotlib
+seaborn
+mlxtend
+statsmodels
