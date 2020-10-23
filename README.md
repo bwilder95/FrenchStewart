@@ -1,6 +1,8 @@
 # Midterm Assignment
-### Note: the plots generated do not appear in terminal, but display when ran in pycharm/ Visual Studio
-### The three html plots will save to your folder. 
+### Note: heat map and Brute Force plot generated do not appear in terminal,
+### but they will display when ran in pycharm/ Visual Studio
+
+### The three html charts will save to your folder. 
 # Setup for developement:
 
 - Setup a python 3.x venv (usually in `.venv`)
