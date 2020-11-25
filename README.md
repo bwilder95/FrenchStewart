@@ -16,4 +16,3 @@ Note: If you are unable to run script, try typing '''chmod +x ./scripts/run-ML.s
 and then '''./scripts/run-ML.sh'''
 
 The html file should load into the project folder, however, with some datasets the plot appears elsewhere.
-
