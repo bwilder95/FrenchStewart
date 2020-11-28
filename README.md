@@ -3,7 +3,7 @@
 after cloning repo, run:
 
 ```
-docker-compose up
+docker-compose up -d
 ```
 
 then run,
