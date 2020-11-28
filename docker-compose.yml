@@ -1,10 +1,19 @@
-version: "3.8"
-
+version: "3.1"
 services:
-  web:
+  the-work-horse:
     build:
-      context: .
+      context: ./
       dockerfile: Dockerfile
-    container_name: web
+  serving-it-up-fresh:
+    image: mysql:latest
+    container_name: mysql-container
     ports:
-      - "5000:5000"
+      - 3306:3306
+    restart: always
+    volumes:
+      - ./FrenchStewart/baseball.sql:/docker-entrypoint-initdb.d/dump.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: password123 # pragma: allowlist secret
+      MYSQL_DATABASE: baseball_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
