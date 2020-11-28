@@ -1,9 +1,5 @@
 version: "3.1"
 services:
-  the-work-horse:
-    build:
-      context: ./
-      dockerfile: Dockerfile
   serving-it-up-fresh:
     image: mysql:latest
     container_name: mysql-container
@@ -17,3 +13,5 @@ services:
       MYSQL_DATABASE: baseball_db
       MYSQL_USER: user
       MYSQL_PASSWORD: password
+  #the-work-horse:
+  #  build: .

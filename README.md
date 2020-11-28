@@ -1,9 +1,18 @@
-# HW 5
+# HW 5 - Docker
 
-after setting up venv etc, run:
+after cloing repo, run:
 
 ```
 docker-compose up
 ```
+then run, 
 
-output should give a string
+```
+./scripts/baseball-logic.sh
+```
+When it gives an error with the password. Please try it a 2nd time. 
+
+Then the script should run
+
+
+
