@@ -8,7 +8,7 @@ echo "**********USE baseball_db**********"
 docker exec mysql-container bash -c "mysql --user=root --password=password123 --database=baseball_db -e 'USE baseball_db'" # pragma: allowlist secret
 
 # upload data (this step take a while)
-echo "**********SOURCE baseball.sql**********..... this step takes about 15 minutes*******"
+echo "**********SOURCE baseball.sql**********..... this step takes 10 minutes*******"
 docker exec mysql-container bash -c "mysql --user=root --password=password123 --database=baseball_db -e 'SOURCE baseball.sql'" # pragma: allowlist secret
 
 # select baseball_db
@@ -28,19 +28,21 @@ DROP TABLE IF EXISTS batting_avg_annual;"
 echo "**********Calculating annual batter average**********"
 docker exec mysql-container mysql --user=root --password=password123 --database=baseball_db -e "
 CREATE TABLE batting_avg_annual \
-AS (SELECT batter_counts.batter,batter_counts.Hit,batter_counts.atBat,game.local_date  \
+AS (SELECT batter_counts.batter,batter_counts.Hit,batter_counts.atBat,game.local_date,batter_counts.game_id  \
 FROM batter_counts \
 INNER JOIN game ON batter_counts.game_id=game.game_id);"
 
-# Creating annual batter average table
-echo "**********output new table to storage**********"
-docker exec mysql-container /docker-entrypoint-initdb.d/dump.sql -u root --password=password123 baseball_db > dump.sql
+# Show stats for game 12560
+echo "**********PRESENTING STATS FOR GAME 12560**********"
+docker exec mysql-container mysql --user=root --password=password123 --database=baseball_db -e "
+SELECT a.local_date,a.batter, a.game_id, \
+(SELECT SUM(b.Hit)/nullif (SUM(b.atBat),0) \
+FROM batting_avg_annual AS b \
+WHERE a.game_id=12560 and DATEDIFF(a.local_date,b.local_date) BETWEEN 0 AND 100 and a.batter = b.batter) AS battingavg100day  \
+FROM batting_avg_annual AS a \
+LIMIT 0,20;"
 
-# Showing first 20 rows of Batter average
-echo "**********first 20 rows of Annual Batter average**********"
-docker exec mysql-container mysql --user=root --password=password123  --database=baseball_db -e  "
-SELECT batter, (SUM(Hit) / SUM(atBat)) AS batPerrcent,year(local_date) AS year \
-FROM batting_avg_annual \
-GROUP BY batter, year  \
-ORDER BY batter ASC \
-LIMIT 0,20;" # pragma: allowlist secret
+# Output storage
+echo "**********output new table to storage**********"
+chmod +x entrypoint.sh
+docker exec mysql-container /docker-entrypoint-initdb.d/dump.sql -u root --password=password123 baseball_db > dump.sql
