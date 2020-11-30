@@ -9,7 +9,7 @@ docker exec mysql-container bash -c "mysql --user=root --password=password123 --
 
 # upload data (this step take a while)
 echo "**********SOURCE baseball.sql**********..... this step takes 10 minutes*******"
-docker exec mysql-container bash -c "mysql --user=root --password=password123 --database=baseball_db -e 'SOURCE baseball.sql'" # pragma: allowlist secret
+docker exec mysql-container bash -c "mysql --user=root --password=password123 --database=baseball_db < /docker-entrypoint-initdb.d/dump.sql"
 
 # select baseball_db
 echo "**********USE baseball_db**********"
